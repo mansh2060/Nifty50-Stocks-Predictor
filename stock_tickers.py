@@ -1,17 +1,24 @@
-def get_stock_ticker(nifty50_tickers):
-    tickers_dict={}
-    stock_name=input("Enter the stock price             :")
+def get_stock_ticker(nifty50_tickers, stock_name):
+    tickers_dict = {}
+
+    stock_name = stock_name.strip()
+
     try:
-        ticker=nifty50_tickers[stock_name]
-        if ticker:
-            tickers_dict[stock_name]= ticker
-    except NameError:
-        print("Stock  is not present in Nifty50")
+        ticker = nifty50_tickers[stock_name]
+        tickers_dict[stock_name] = ticker
+
+    except KeyError:
+        print("❌ Stock not found in Nifty 50")
+
+        # Suggest closest matches
+        suggestions = [
+            s for s in nifty50_tickers.keys()
+            if stock_name.lower() in s.lower()
+        ]
+
+        if suggestions:
+            print("Did you mean:")
+            for s in suggestions[:5]:
+                print(f" - {s}")
+
     return tickers_dict
-
-
-
-"""
-previous day : stock price close , stock volume , stock open , stock low , stock high ,
-current day  : stock price open
-"""

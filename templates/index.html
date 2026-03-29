@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Price Prediction</h1>
+        
+        <form method="POST">
+            <label for="stock_name">Select Stock:</label>
+            <select name="stock_name" id="stock_name">
+                {% for stock, ticker in nifty50_tickers.items() %}
+                    <option value="{{ stock }}">{{ stock }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if predicted_price is not none %}
+        <h2>Predicted Price for {{ stock_name }}: ₹{{ "%.2f"|format(predicted_price) }}</h2>
+        {% endif %}
+        
+        {% if graph_url %}
+        <h2>Stock Data Visualization for {{ stock_name }}</h2>
+        <img src="{{ graph_url }}" alt="Stock Graph">
+        {% endif %}
+        
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
