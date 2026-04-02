@@ -3,3 +3,8 @@ gunicorn
 requests
 openai
 streamlit
+yfinance
+plotly
+xgboost
+pandas
+numpy
