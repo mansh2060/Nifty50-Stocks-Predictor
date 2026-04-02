@@ -8,3 +8,4 @@ plotly
 xgboost
 pandas
 numpy
+sklearn
